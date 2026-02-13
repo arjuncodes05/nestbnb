@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import {assets} from "../assets/assets.js"
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 
 const NavBar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const location = useLocation()
+
   useEffect(() => {
+    if(location.pathname !== "/"){
+      setIsScrolled(true);
+      return;
+    }else{
+      setIsScrolled(false)
+    }
+    setIsScrolled(prev => location.pathname !== "/" ? true : prev)
     const handleScroll = () => {
       setIsScrolled(window.scrollY  > 10)
     }
@@ -19,7 +28,7 @@ const NavBar = () => {
   return (
     <div className="overflow-y-scroll h-88 md:h-64">
       <p className="h-125 w-20"></p>
-      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 md:px-10 lg:px-24 xl:px-32 text-white transition-all duration-500 ${isScrolled ? "bg-white/80 backdrop-blur-md shadow-md py-4 md:py-3" : "py-3 bg-transparent md:py-4"}`}>
+      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 md:px-10 lg:px-24 xl:px-32 text-white transition-all ease duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xs shadow-md py-4 md:py-3" : "py-3 bg-transparent md:py-4"}`}>
           <div className="items-center flex gap-3 cursor-pointer">
                 <img className="w-10 lg:w-15" src={assets.logo} alt="" />
                 <p className={`font-semibold text-xl lg:text-3xl ${isScrolled ? "invert" : "bg-text-white"}`}>Nestbnb</p>
