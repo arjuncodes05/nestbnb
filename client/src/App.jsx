@@ -1,17 +1,16 @@
-import NavBar from './components/NavBar'
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/home";
 
 const App = () => {
   return (
-    <div className=''>
-      <NavBar></NavBar>
-      <div className='absolute top-0 w-full h-screen bg-indigo-300'>
-        <img className='w-full h-full' src="/src/assets/heroImage.png" alt="" />
-      </div>
-
-      <div className='w-full h-screen bg-red-300'>
-      </div>
+    <div className="">
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -19,14 +19,14 @@ const NavBar = () => {
   return (
     <div className="overflow-y-scroll h-88 md:h-64">
       <p className="h-125 w-20"></p>
-      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 lg:px-10 lg:px-24 xl:px-32 text-white transition-all duration-500 ${isScrolled ? "bg-white shadow-md py-4 md:py-3" : "py-3 bg-transparent md:py-4"}`}>
+      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 md:px-10 lg:px-24 xl:px-32 text-white transition-all duration-500 ${isScrolled ? "bg-white/80 backdrop-blur-md shadow-md py-4 md:py-3" : "py-3 bg-transparent md:py-4"}`}>
           <div className="items-center flex gap-3 cursor-pointer">
                 <img className="w-10 lg:w-15" src={assets.logo} alt="" />
                 <p className={`font-semibold text-xl lg:text-3xl ${isScrolled ? "invert" : "bg-text-white"}`}>Nestbnb</p>
             </div>
 
             {/* desktop navLinks */}
-            <div className="hidden md:flex flex-row gap-4 items-center">
+            <div className="hidden md:flex flex-row gap-4 lg:gap-8 items-center">
                     <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Home
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
