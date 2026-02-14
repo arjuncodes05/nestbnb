@@ -28,7 +28,7 @@ const NavBar = () => {
   return (
     <div className="fixed top-0 left-0 h-88 md:h-64">
       <p className="h-125 w-20"></p>
-      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 md:px-10 lg:px-24 xl:px-32 text-white transition-all ease duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xs shadow-md py-4 md:py-2" : "py-3 bg-transparent md:py-3"}`}>
+      <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32 text-white transition-all ease duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xs shadow-md py-4 md:py-2" : "py-3 bg-transparent md:py-3"}`}>
           <Link to="/" className="items-center flex gap-3 cursor-pointer">
                 <img className="w-10 lg:w-14" src={assets.logo} alt="logo" />
                 <p className={`font-semibold text-xl lg:text-2xl ${isScrolled ? "invert" : "bg-text-white"}`}>Nestbnb</p>

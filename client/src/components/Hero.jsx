@@ -3,7 +3,7 @@ import { assets } from "../assets/assets"
 const Hero = () => {
   return (
     <>
-        <div className='w-full h-screen bg-[url("/src/assets/heroImage.png")] bg-center bg-cover flex flex-col pt-20 md:pt-0 justify-center items-start space-y-4 sm:space-y-6 text-white px-4 md:px-10 lg:px-24 xl:px-32'>
+        <div className='w-full h-screen bg-[url("/src/assets/heroImage.png")] bg-center bg-cover flex flex-col pt-20 md:pt-0 justify-center items-start space-y-4 sm:space-y-6 text-white px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32'>
             {/* <img className='w-full h-full' src="/src/assets/heroImage.png" alt="" /> */}
             <div className="w-4/5 lg:w-1/2 space-y-2 sm:space-y-4">
             <p className="bg-[#49B9FF]/50 w-fit rounded-full px-2 py-1 text-xs sm:text-sm md:text-base">

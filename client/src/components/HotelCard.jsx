@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 const HotelCard = ({data}) => {
   return (
-    <div className="cursor-pointer w-65 sm:w-[40%] bg-slate-50 md:w-64 xl:w-65 rounded-lg overflow-hidden shadow-sm">
+    <div className="cursor-pointer w-65 sm:w-[40%] md:w-64 xl:w-65 rounded-lg overflow-hidden shadow-sm">
       <img src={data.images[0]} alt="image" />
       <div className="p-4 space-y-2">
         <div className="flex justify-between">

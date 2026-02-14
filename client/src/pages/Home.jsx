@@ -1,3 +1,4 @@
+import ExclusiveOffers from '../components/ExclusiveOffers'
 import FeaturedHotels from '../components/FeaturedHotels'
 import Hero from '../components/Hero'
 
@@ -6,6 +7,7 @@ const Home = () => {
     <div className=''>
         <Hero/>
         <FeaturedHotels/>
+        <ExclusiveOffers/>
     </div>
   )
 }
