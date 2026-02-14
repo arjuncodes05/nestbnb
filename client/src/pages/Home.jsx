@@ -1,9 +1,11 @@
+import FeaturedHotels from '../components/FeaturedHotels'
 import Hero from '../components/Hero'
 
 const Home = () => {
   return (
-    <div>
+    <div className=''>
         <Hero/>
+        <FeaturedHotels/>
     </div>
   )
 }

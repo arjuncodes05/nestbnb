@@ -192,9 +192,125 @@ export const roomsDummyData = [
     }
 ]
 
+// export const roomsDummyData = [
+//     {
+//     _id: "67f7647c197ac559e4089b96",
+//     hotel: hotelDummyData,
+//     roomType: "Double Bed",
+//     pricePerNight: 399,
+//     rating: 4.3,
+//     address: "Mall Road, Manali, Himachal Pradesh, India",
+//     amenities: ["Room Service", "Mountain View", "Pool Access"],
+//     images: [roomImg1, roomImg2, roomImg3, roomImg4],
+//     isAvailable: true,
+//     createdAt: "2025-04-10T06:26:04.013Z",
+//     updatedAt: "2025-04-10T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b97",
+//     hotel: hotelDummyData,
+//     roomType: "Single Bed",
+//     pricePerNight: 199,
+//     rating: 4.0,
+//     address: "Baga Beach Road, Goa, India",
+//     amenities: ["Free WiFi", "Air Conditioning"],
+//     images: [roomImg1, roomImg2],
+//     isAvailable: true,
+//     createdAt: "2025-04-11T06:26:04.013Z",
+//     updatedAt: "2025-04-11T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b98",
+//     hotel: hotelDummyData,
+//     roomType: "Suite",
+//     pricePerNight: 899,
+//     rating: 4.8,
+//     address: "Lake Pichola, Udaipur, Rajasthan, India",
+//     amenities: ["Lake View", "Breakfast Included", "Private Balcony"],
+//     images: [roomImg1, roomImg2, roomImg3],
+//     isAvailable: false,
+//     createdAt: "2025-04-12T06:26:04.013Z",
+//     updatedAt: "2025-04-12T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b99",
+//     hotel: hotelDummyData,
+//     roomType: "Deluxe Room",
+//     pricePerNight: 499,
+//     rating: 4.5,
+//     address: "MG Road, Bengaluru, Karnataka, India",
+//     amenities: ["Gym Access", "Room Service", "City View"],
+//     images: [roomImg1, roomImg2, roomImg3],
+//     isAvailable: true,
+//     createdAt: "2025-04-13T06:26:04.013Z",
+//     updatedAt: "2025-04-13T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b9a",
+//     hotel: hotelDummyData,
+//     roomType: "Family Room",
+//     pricePerNight: 699,
+//     rating: 4.6,
+//     address: "Sector 17, Chandigarh, India",
+//     amenities: ["Breakfast Included", "WiFi", "Parking"],
+//     images: [roomImg1, roomImg2, roomImg3, roomImg4],
+//     isAvailable: true,
+//     createdAt: "2025-04-14T06:26:04.013Z",
+//     updatedAt: "2025-04-14T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b9b",
+//     hotel: hotelDummyData,
+//     roomType: "Executive Suite",
+//     pricePerNight: 1099,
+//     rating: 4.9,
+//     address: "Connaught Place, New Delhi, India",
+//     amenities: ["Workspace", "Breakfast", "Lounge Access"],
+//     images: [roomImg1, roomImg2],
+//     isAvailable: false,
+//     createdAt: "2025-04-15T06:26:04.013Z",
+//     updatedAt: "2025-04-15T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b9c",
+//     hotel: hotelDummyData,
+//     roomType: "Standard Room",
+//     pricePerNight: 299,
+//     rating: 3.9,
+//     address: "Park Street, Kolkata, West Bengal, India",
+//     amenities: ["WiFi", "TV"],
+//     images: [roomImg1, roomImg2],
+//     isAvailable: true,
+//     createdAt: "2025-04-16T06:26:04.013Z",
+//     updatedAt: "2025-04-16T06:26:04.013Z",
+//     __v: 0
+//   },
+//   {
+//     _id: "67f7647c197ac559e4089b9d",
+//     hotel: hotelDummyData,
+//     roomType: "Luxury Suite",
+//     pricePerNight: 1299,
+//     rating: 4.7,
+//     address: "Marine Drive, Mumbai, Maharashtra, India",
+//     amenities: ["Sea View", "Butler Service", "Jacuzzi"],
+//     images: [roomImg1, roomImg2, roomImg3, roomImg4],
+//     isAvailable: true,
+//     createdAt: "2025-04-17T06:26:04.013Z",
+//     updatedAt: "2025-04-17T06:26:04.013Z",
+//     __v: 0
+//   }
+// ]
+
 
 
 // User Bookings Dummy Data
+
 export const userBookingsDummyData = [
     {
         "_id": "67f76839994a731e97d3b8ce",

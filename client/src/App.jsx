@@ -4,11 +4,11 @@ import Home from "./pages/home";
 
 const App = () => {
   return (
-    <div className="">
+    <div>
       <NavBar/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+        </Routes>
     </div>
   );
 };
