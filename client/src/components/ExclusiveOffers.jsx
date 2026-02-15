@@ -8,7 +8,7 @@ const ExclusiveOffers = () => {
     const subtitle = "Take advantage of our limited-time offers and special packages to enhance your stay and create unforgettable memories."
 
   return (
-    <div className="w-full flex bg-white flex-col items-center mt-10 h-fit mb-10 py-5 md:py-12 text-black space-y-5 sm:space-y-8 px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32">
+    <div className="w-full flex bg-white flex-col items-center h-fit mb-5 py-5 md:py-12 text-black space-y-5 sm:space-y-8 px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32">
         <div className="w-full flex flex-col md:flex-row space-y-5 md:space-y-0 justify-between">
 
             <Title title={title} subtitle={subtitle} align="start" />
