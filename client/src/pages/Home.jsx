@@ -1,6 +1,7 @@
 import ExclusiveOffers from '../components/ExclusiveOffers'
 import FeaturedHotels from '../components/FeaturedHotels'
 import Hero from '../components/Hero'
+import Testimonial from '../components/Testimonial'
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
         <Hero/>
         <FeaturedHotels/>
         <ExclusiveOffers/>
+        <Testimonial/>
     </div>
   )
 }

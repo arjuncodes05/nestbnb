@@ -10,7 +10,6 @@ const FeaturedHotels = () => {
 
   return (
     <div className='w-full flex bg-slate-50 flex-col items-center min-h-screen py-10 md:py-12 text-black space-y-10 md:space-y-15 px-4 md:px-10 lg:px-24 xl:px-32'>
-
         <Title title={title} subtitle={subtitle} align="center" />
 
         <div className='flex justify-center gap-8 flex-wrap'>
