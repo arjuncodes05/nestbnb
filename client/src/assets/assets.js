@@ -22,6 +22,7 @@ import heartIcon from './heartIcon.svg'
 import badgeIcon from './badgeIcon.svg'
 import menuIcon from './menuIcon.svg'
 import closeMenu from './closeMenu.svg'
+import downArrow from './downArrow.svg'
 import guestsIcon from './guestsIcon.svg'
 import roomImg1 from './roomImg1.png'
 import roomImg2 from './roomImg2.png'
@@ -58,6 +59,7 @@ export const assets = {
     mountainIcon,
     poolIcon,
     closeIcon,
+    downArrow,
     homeIcon,
     locationFilledIcon,
     heartIcon,
@@ -137,6 +139,7 @@ export const hotelDummyData = {
     "city": "New York",
     "createdAt": "2025-04-10T06:22:11.663Z",
     "updatedAt": "2025-04-10T06:22:11.663Z",
+    "rating": Math.floor(Math.random() * 5),
     "__v": 0
 }
 

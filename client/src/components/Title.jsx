@@ -1,7 +1,7 @@
 
 const Title = ({title, subtitle, textColor, align}) => {
   return (
-    <div className={`flex justify-center gap-2 mt-8 flex-col text-center items-center ${align === "start" && "md:items-start md:text-left"} w-full cursor-default px-4 ${textColor === "white" && "text-white"}`}>
+    <div className={`flex justify-center gap-2 mt-8 flex-col text-center items-center ${align === "start" && "md:items-start md:text-left"} w-full cursor-default ${textColor === "white" && "text-white"}`}>
       <h2 className="font-playfair text-4xl lg:text-5xl font-medium">
         {title}
       </h2>
