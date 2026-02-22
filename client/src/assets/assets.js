@@ -369,7 +369,7 @@ export const userBookingsDummyData = [
 // Dashboard Dummy Data
 export const dashboardDummyData = {
     "totalBookings": 3,
-    "totalRevenue": 897,
+    "totalRevenue": 898,
     "bookings": userBookingsDummyData
 }
 

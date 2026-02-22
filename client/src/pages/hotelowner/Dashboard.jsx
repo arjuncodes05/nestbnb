@@ -29,7 +29,7 @@ const Dashboard = () => {
 
       {/* Recent Bookings */}
       <p className="text-blue-950/70 font-medium text-xl mb-5">Recent Bookings</p>
-      <div className="space-y-2 border border-gray-300 rounded-lg text-left max-w-3xl max-h-80 overflow-y-scroll">
+      <div className="space-y-2 border border-gray-300 rounded-lg text-left max-w-3xl max-h-60 overflow-y-scroll">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
