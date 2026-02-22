@@ -10,13 +10,13 @@ const SlideBar = () => {
     ]
 
   return (
-    <div className="md:w-64 w-16 h-full flex flex-col py-4 border-r border-gray-300 transition-all duration-500">
+    <div className="sm:w-45 lg:w-60 w-full sm:h-full flex-row flex justify-around sm:justify-start sm:flex-col py-4 border-r border-gray-300 transition-all duration-500 shadow-sm sm:shadow-none">
         {
             slidebarLinks.map((item, index) => (
-                <NavLink key={index} to={item.path} end="/owner" className={({isActive}) => `${isActive ? "border-r-4 md:border-r-[6px] bg-blue-600/10 border-blue-600 text-blue-600" : "hover:bg-gray-100/90 border-white text-gray-700"} flex items-center gap-2 py-3 px-4 md:px-8 border-box
+                <NavLink key={index} to={item.path} end="/owner" className={({isActive}) => `${isActive ? "sm:border-r-4 h-fit md:border-r-[6px] rounded-md bg-blue-600/10 border-blue-600 text-blue-600" : "hover:bg-gray-100/90 border-white text-gray-700"} flex flex-col sm:flex-row items-center gap-2 py-2 sm:py-3 px-4 md:px-8 border-box
                 `}>
-                    <img src={item.icon} alt={item.name} className="min-h-6 min-w-6" />
-                    <p className="md:block hidden text-center">{item.name}</p>
+                    <img src={item.icon} alt={item.name} className="sm:min-h-6 sm:min-w-6" />
+                    <p className="text-xs sm:text-base text-center">{item.name}</p>
                 </NavLink>
             ))
         }

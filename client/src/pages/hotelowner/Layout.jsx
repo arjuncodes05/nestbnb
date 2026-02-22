@@ -4,11 +4,11 @@ import SlideBar from "../../components/hotelOwner/SlideBar"
 
 const Layout = () => {
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <NavBar/>
-      <div className="flex h-screen">
+      <div className="flex flex-col sm:flex-row min-h-screen sm:h-screen">
         <SlideBar/>
-        <div className="flex-1 p-4 pt-10 md:px-10 h-full">
+        <div className="flex-1 px-4 md:px-10 h-screen">
           <Outlet/>
         </div>
       </div>

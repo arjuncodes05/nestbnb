@@ -1,8 +1,14 @@
-import React from 'react'
+import Title from '../../components/Title'
 
 const AddRoom = () => {
+
+  const title = "Add Room";
+  const subtitle = "Fill in the details carefully and accurate room details, pricing, and amenities, to enhance the user booking experience"
+
   return (
-    <div>AddRoom</div>
+    <div>
+      <Title title={title} subtitle={subtitle} align="start" />
+    </div>
   )
 }
 
