@@ -11,6 +11,7 @@ import Layout from "./pages/hotelowner/Layout.jsx"
 import Dashboard from "./pages/hotelowner/Dashboard.jsx"
 import AddRoom from "./pages/hotelowner/AddRoom.jsx"
 import ListRoom from "./pages/hotelowner/ListRoom.jsx"
+import AuthSuccess from "./pages/AuthSuccess.jsx";
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="add-room" element={<AddRoom/>} />
             <Route path="list-room" element={<ListRoom/>} />
           </Route>
+          <Route path="/auth-success" element={<AuthSuccess/>} />
         </Routes>
       <Footer/>
     </div>
