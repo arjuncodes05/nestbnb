@@ -22,7 +22,7 @@ const ExclusiveOffers = () => {
         </div>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-wrap p-4 '>
-            {exclusiveOffers.map((item) => <ExclusiveOffersCard item={item} /> )}
+            {exclusiveOffers.map((item, index) => <ExclusiveOffersCard key={index} item={item} /> )}
         </div>
     </div>
   );
