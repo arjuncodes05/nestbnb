@@ -12,10 +12,31 @@ import Dashboard from "./pages/hotelowner/Dashboard.jsx"
 import AddRoom from "./pages/hotelowner/AddRoom.jsx"
 import ListRoom from "./pages/hotelowner/ListRoom.jsx"
 import AuthSuccess from "./pages/AuthSuccess.jsx";
+import { useEffect } from "react";
 
 const App = () => {
 
   const isOwnerPath = useLocation().pathname.includes("owner");
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken")    
+    async function getUser() {
+      const response = await fetch("http://localhost:3000/api/user", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      if(response.status === 401){
+        localStorage.removeItem("accessToken")
+        return;
+      }
+      const data = await response.json()
+      console.log("user data ", data);  
+    }
+    if(accessToken){
+      getUser();
+    }
+  }, [])
   
   return (
     <div>

@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import jwt from 'jsonwebtoken'
-import isAuthenticated from "../middleware/isAuthenticated.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const authRoute = express.Router()
 
@@ -11,6 +11,7 @@ authRoute.get('/google', passport.authenticate("google", {scope:["profile", "ema
 authRoute.get(
     "/google/callback",
     passport.authenticate("google", {session:false}),
+    
     (req, res) => {
         try {
             const token = jwt.sign({id: req.user.id, email: req.user.email}, process.env.GOOGLE_CLIENT_SECRET, {expiresIn: "7d"});
@@ -24,7 +25,7 @@ authRoute.get(
 )
 
 
-authRoute.get("/me", isAuthenticated, (req, res) => {
+authRoute.get("/me", authMiddleware, (req, res) => {
     res.json({success: true, user:req.user})
 } )
 

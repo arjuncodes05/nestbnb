@@ -34,8 +34,8 @@ const NavBar = () => {
     setShowLoginBox({ desktop: false, mobile: false })
     setMobileMenu(false)
   }, [location.pathname])
-
-
+  
+  
   return (
     <div className="fixed top-0 left-0 h-88 md:h-64">
       <p className="h-125 w-20"></p>
