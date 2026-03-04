@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import {assets} from "../assets/assets.js"
 import {Link, useLocation} from "react-router-dom"
 import LoginBoxes from "./LoginBoxes.jsx";
+import { useAppContext } from "../context/AppContext.jsx";
 
 const NavBar = () => {
 
+  const {user, navigate,  isOwner, setShowHotelReg} = useAppContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showLoginBox, setShowLoginBox] = useState({
@@ -59,11 +61,26 @@ const NavBar = () => {
                     <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>About
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
-                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`}>Dashboard</button>
+                    { user && (
+                      <button 
+                      onClick={() => {
+                        isOwner ? navigate("/owner") : setShowHotelReg(true);
+                      }}
+                      className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`}>
+                        {isOwner ? 'Dashboard' : 'List You Hotel'}
+                      </button>
+                    )}
             </div>
 
             {/* mobile navLinks */}
             <div className={`w-full flex justify-end md:hidden`}> 
+              {
+                user && (
+                    <div className="w-6 mr-4 h-6 rounded-full overflow-hidden">
+                      <img src={user.image} alt="" />
+                    </div>
+                  )
+              }
               <img className={`${isScrolled ? "invert" : ""}`} onClick={() => setMobileMenu(!mobileMenu)} src={assets.menuIcon} alt="" />
               <div className={`${mobileMenu === true ? "left-0" : "-left-full" } flex top-0 bg-white text-black w-full h-screen absolute justify-center items-center flex-col transition-all duration-300`}>
 
@@ -88,17 +105,26 @@ const NavBar = () => {
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
 
-                    <button className="border px-4 py-1 text-sm font-normal rounded-full cursor-pointer transition-all">Dashboard</button>
-
-                    <div className="relative">
-                      <button onClick={() => {
-                        setShowLoginBox(prev => ({desktop: false, mobile: !prev.mobile}))
-                      }} className="bg-black px-6 py-2 rounded-full text-white">Login</button>  
-                      {
-                      showLoginBox.mobile &&
-                        <LoginBoxes type="mobile" setMobileMenu={setMobileMenu} setShowLoginBox={setShowLoginBox}/>
-                      }
-                    </div>
+                    { user && (
+                      <button 
+                      onClick={() => {
+                        isOwner ? navigate("/owner") : setShowHotelReg(true);
+                      }}
+                      className="border px-4 py-1 text-sm font-normal rounded-full cursor-pointer transition-all">
+                        {isOwner ? 'Dashboard' : 'List Your Hotel'}
+                      </button>
+                    )}
+                    { !user && (
+                      <div className="relative">
+                        <button onClick={() => {
+                          setShowLoginBox(prev => ({desktop: false, mobile: !prev.mobile}))
+                        }} className="bg-black px-6 py-2 rounded-full text-white">Login</button>  
+                        {
+                        showLoginBox.mobile &&
+                          <LoginBoxes type="mobile" setMobileMenu={setMobileMenu} setShowLoginBox={setShowLoginBox}/>
+                        }
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
@@ -108,13 +134,20 @@ const NavBar = () => {
                 <li>
                   <img className={`h-7 ${isScrolled ? "invert" : ""} transition-all duration-500`} src={assets.searchIcon} alt="search" />
                 </li>
-                <li className="relative">
+                {
+                  !user ? (
+                  <li className="relative">
                     <button onClick={() => setShowLoginBox(prev => ({mobile: false, desktop: !prev.desktop}))} className="relative bg-black px-6 py-2 rounded-full">Login</button>
-                    {
-                      showLoginBox.desktop &&
-                      <LoginBoxes type="desktop" setShowLoginBox={setShowLoginBox}/>
-                  }
-                </li>
+                      {
+                        showLoginBox.desktop &&
+                        <LoginBoxes type="desktop" setShowLoginBox={setShowLoginBox}/>
+                    }
+                  </li> ) : (
+                    <div className="w-8 h-8 rounded-full overflow-hidden">
+                      <img src={user.image} alt="" />
+                    </div>
+                  )
+                }
               </ul>
             </div>
         </nav>

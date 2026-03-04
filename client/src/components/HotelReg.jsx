@@ -1,12 +1,16 @@
 import { assets, cities } from '../assets/assets'
+import { useAppContext } from '../context/AppContext.jsx'
 
 const HotelReg = () => {
+
+    const {setShowHotelReg} = useAppContext();
+
   return (
     <div className='absolute h-screen w-full flex items-center justify-center bg-black/80'>
         <form className=' bg-white rounded-lg overflow-hidden w-[90%] sm:w-[60%] md:w-[90%] lg:w-4/5 xl:w-3/5 flex'>
             <img src={assets.regImage} alt="reg image" className='hidden md:flex w-1/2' />
-            <div className='relative px-4 md:px-6 py-10 flex flex-col justify-center space-y-5 w-full md:w-1/2'>
-                <img src={assets.closeIcon} alt="close icon" className='absolute top-4 right-4 w-3' />
+            <div className='relative px-4 md:px-6 py-10 flex flex-col justify-center space-y-2.5 md:space-y-5 w-full md:w-1/2'>
+                <img onClick={() => setShowHotelReg(false)} src={assets.closeIcon} alt="close icon" className='absolute top-4 right-4 w-3' />
                 <p className='text-black text-center text-xl md:text-2xl font-bold'>Register Your Hotel</p>
 
                 <div className='space-y-1 text-sm md:text-base'>

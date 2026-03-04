@@ -7,10 +7,10 @@ export const getUserData = async(req, res) => {
             console.log("User does not exists");
             return res.status(404).json({message: "User does not exists"})
         }
-        return res.json(user)
+        return res.json({success: true, user})
     } catch (error) {
         console.log("Error while fetching user data from DB >> ", error);
-        
+        return res.json({success: false, message: "Failed to fetch user."})
     }
 }
 
@@ -25,22 +25,6 @@ export const storeRecentSearchedCities = async (req, res) => {
     let updatedRecentSearchedCities = []
 
     try {
-        // let a = ["simpler approch =>", `if(recentSearchedCities.length < 3){
-        //     updatedRecentSearchedCities = await User.findByIdAndUpdate(userId, { $push: 
-        //         {recentSearchedCities: recentSearchedCity} 
-        //     }, {
-        //         new: true, 
-        //         select: "recentSearchedCities"
-        //     })
-        // }else{
-        //     updatedRecentSearchedCities = await User.findByIdAndUpdate(userId, {
-        //         $pop: {recentSearchedCities: -1},
-        //         $push: {recentSearchedCities: recentSearchedCity}
-        //     }, {
-        //         new: true, 
-        //         select: "recentSearchedCities"
-        //     })
-        // }`]
         updatedRecentSearchedCities = await User.findByIdAndUpdate(userId, {
             $push: {
                 recentSearchedCities: {
