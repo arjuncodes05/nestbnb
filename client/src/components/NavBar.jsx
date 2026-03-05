@@ -4,11 +4,10 @@ import {Link, useLocation} from "react-router-dom"
 import LoginBoxes from "./LoginBoxes.jsx";
 import { useAppContext } from "../context/AppContext.jsx";
 
-const NavBar = () => {
+const NavBar = ({mobileMenu, setMobileMenu}) => {
 
   const {user, navigate,  isOwner, setShowHotelReg} = useAppContext();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
   const [showLoginBox, setShowLoginBox] = useState({
     desktop: false,
     mobile: false
@@ -64,7 +63,12 @@ const NavBar = () => {
                     { user && (
                       <button 
                       onClick={() => {
-                        isOwner ? navigate("/owner") : setShowHotelReg(true);
+                        if(isOwner){
+                          navigate("/owner");
+                          scrollTo(0, 0)
+                        } else{
+                          setShowHotelReg(true)
+                        }
                       }}
                       className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`}>
                         {isOwner ? 'Dashboard' : 'List You Hotel'}

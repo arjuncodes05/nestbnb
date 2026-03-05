@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import { useAppContext } from '../context/AppContext.jsx'
 
 const AuthSuccess = () => {
+    const {setUser} = useAppContext();
     
     useEffect(() => {
         const handleAuth = async()=>{
@@ -18,10 +20,10 @@ const AuthSuccess = () => {
                     
                     if(response.success){
                         console.log("response (authSuccess.jsx page) >>> ", response.user);
-                        // use context api for user and set the user from here
-                        
+                        setUser(response.user)
                         if (window.opener) { 
                             // this executes when we are on window, and new auth tab is opened
+                            window.opener.postMessage({ type: "AUTH_SUCCESS" }, "*");
                             window.close();
                         } else {
                             // this executes when we are on mobile, and the auth happened on same tab-

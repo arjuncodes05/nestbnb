@@ -12,6 +12,11 @@ export const AppProvider = ({children}) => {
     const [isOwner, setIsOwner] = useState(false);
     const [user, setUser] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
+    const [toastInfo, setToastInfo] = useState({
+        visible: false,
+        message: "",
+        type: "error"    // error or success
+    })
 
     const fetchUser = async () => {
         try {
@@ -52,8 +57,19 @@ export const AppProvider = ({children}) => {
         }
     },[])
 
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if(event.data.type === "AUTH_SUCCESS"){
+                fetchUser();
+            }
+        }
+        window.addEventListener('message', handleMessage)
+
+        return () => window.removeEventListener('message', handleMessage);
+    }, [])
+
     const value = {
-        currency, navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser
+        currency, navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo
     }
 
     return  (
