@@ -33,9 +33,8 @@ export const createRoom = async(req, res) => {
         })
         return res.json({success: true, message: "Room Added."})
     } catch (error) {
-        console.log("error while adding room ", error);
-        return res.json({success: false, message: error.message})
-        
+        console.log("error while adding room ", error.message);
+        return res.json({success: false, message: "Failed to add room"})
     } 
 }
 
@@ -69,13 +68,14 @@ export const getOwnerRooms = async(req, res) => {
         return res.json({success: true, rooms})
     } catch (error) {
         console.log("Error while fetching owner rooms >> ", error.message);
-        return res.json({success: false, message: error.message})
+        return res.json({success: false, message: "Failed To fetch owner rooms"})
     }
 }
 
 export const toggleRoomAvailability = async(req, res)=>{
     try {
         const roomId = new mongoose.Types.ObjectId(req.body.roomId);
+        
         const roomData = await Room.findById(roomId);
         if(!roomData){
             return res.status(404).json({
@@ -85,9 +85,9 @@ export const toggleRoomAvailability = async(req, res)=>{
         }
         roomData.isAvailable = !roomData.isAvailable;
         await roomData.save();
-        return res.json({success: true, message: "Room availability updated"})
+        return res.json({success: true, message: roomData.isAvailable ? "Room is now available" : "Room is now unavailable"})
     } catch (error) {
        console.log("Error while updating isAvailability >> ", error.message);
-       return res.json({success: false, message: "Error while updating isAvailability"});
+       return res.json({success: false, message: "Error while updating room availability"});
     }  
 }

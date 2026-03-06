@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { assets, cities } from '../assets/assets'
-import { BASE_URL, useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/AppContext.jsx'
 
 const HotelReg = ({setMobileMenu}) => {
 
@@ -9,7 +9,7 @@ const HotelReg = ({setMobileMenu}) => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     
-    const {setShowHotelReg, setToastInfo, setIsOwner} = useAppContext();
+    const {BASE_URL, setShowHotelReg, setToastInfo, setIsOwner} = useAppContext();
 
     const onSubmitHandler = async(e) => {
         e.preventDefault();

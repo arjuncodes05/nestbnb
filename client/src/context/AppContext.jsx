@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-
 const AppContext = createContext();
 
 export const AppProvider = ({children}) => {
     const currency = import.meta.env.VITE_CURRENCY || "₹";
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
     const navigate = useNavigate();
 
     const [isOwner, setIsOwner] = useState(false);
@@ -69,7 +69,7 @@ export const AppProvider = ({children}) => {
     }, [])
 
     const value = {
-        currency, navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo
+        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo
     }
 
     return  (
