@@ -10,6 +10,7 @@ export const AppProvider = ({children}) => {
     const navigate = useNavigate();
 
     const [isOwner, setIsOwner] = useState(false);
+    const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"))
     const [user, setUser] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [toastInfo, setToastInfo] = useState({
@@ -17,10 +18,32 @@ export const AppProvider = ({children}) => {
         message: "",
         type: "error"    // error or success
     })
+    const [rooms, setRooms] = useState([]);
+
+    const fetchRooms = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/api/rooms`)
+            const data = await response.json();
+            if(data.success){
+                setRooms(data.rooms)
+            }else{
+                setToastInfo({
+                    visible: true,
+                    message: data.message,
+                    type: "error"
+                })
+            }
+        } catch (error) {
+            setToastInfo({
+                visible: true,
+                message: error.message,
+                type: "error"
+            })
+        }
+    }
 
     const fetchUser = async () => {
-        try {
-            const accessToken = localStorage.getItem("accessToken")    
+        try {   
             async function getUser() {
             const response = await fetch("http://localhost:3000/api/user", {
                 headers: {
@@ -41,9 +64,7 @@ export const AppProvider = ({children}) => {
                 }, 5000)
             }
             }
-            if(accessToken){
-                getUser();
-            }
+            getUser();
         } catch (error) {
             console.log("Error while fetching user");
             // create a toast notification here
@@ -51,10 +72,13 @@ export const AppProvider = ({children}) => {
     }
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        if (accessToken) {
+        if (!user && accessToken) {
             fetchUser();
         }
+    },[user, accessToken])
+
+    useEffect(() => {
+        fetchRooms();
     },[])
 
     useEffect(() => {
@@ -69,7 +93,7 @@ export const AppProvider = ({children}) => {
     }, [])
 
     const value = {
-        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo
+        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo, rooms, setRooms
     }
 
     return  (

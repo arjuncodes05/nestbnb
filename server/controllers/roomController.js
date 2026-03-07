@@ -51,7 +51,7 @@ export const getRooms = async (req, res) => {
         return res.json({success: true, rooms})
     } catch (error) {
         console.log("Error while fetching rooms >> ", error.message);
-        return res.json({success: false, message: error,message})  
+        return res.json({success: false, message: "Failed to fetch Rooms"})  
     } 
 }
 

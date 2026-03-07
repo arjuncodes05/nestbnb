@@ -20,9 +20,10 @@ const RoomCard = ({ room }) => {
   };
 
   return (
-    <div className="overflow-hidden shadow-sm p-2 xl:shadow-none xl:p-0 rounded-lg flex flex-col xl:flex-row sm:items-start md:items-center gap-4 my-5 pb-6 border-gray-400/90">
+    <div className="overflow-hidden shadow-sm p-2 xl:shadow-none xl:p-0 rounded-lg flex flex-col xl:flex-row sm:items-start xl:items-center gap-4 my-5 pb-6 border-gray-400/90">
+      
       <img
-        className="w-full xl:w-1/2 max-h-60 rounded-xl"
+        className="w-90 md:w-100 xl:w-90 h-60 object-cover rounded-xl"
         src={room.images[0]}
         alt="room image"
       />
@@ -50,7 +51,7 @@ const RoomCard = ({ room }) => {
               <img
                 className="w-4"
                 src={facilityIcons[el]}
-                alt={`${el}`}
+                alt=""
               />
               <span className="text-xs">{el}</span>
             </li>

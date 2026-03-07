@@ -1,39 +1,55 @@
+import { useAppContext } from "../context/AppContext.jsx";
 
-const Filters = ({visibilitySize, otherClasses=""}) => {
+const Filters = ({ visibilitySize,  otherClasses="", selectedFilters, setSelectedFilters, selectedSort, setSelectedSort, roomType, sortOptions, priceRange, setSearchParams}) => {
 
-    const PopularFilters = [
-        { filter: "Single Bed", name: "singleBed" },
-        { filter: "Double Bed", name: "doubleBed" },
-        { filter: "Luxury Room", name: "luxuryRoom" },
-        { filter: "Family Suite", name: "familySuite" },
-    ]
+    const {currency} = useAppContext();
 
-    const priceRange = [
-        { range: "$ 0 to 500", name: "range1" },
-        { range: "$ 500 to 1000", name: "range2" },
-        { range: "$ 1000 to 2000", name: "range3" },
-        { range: "$ 2000 to 3000", name: "range4" },
-    ]
+      // handle changes for filters and sorting
+      const handleFilterChange = (checked, value, type) => {
+        setSelectedFilters((prev) => {
+          const updatedFilters = {...prev};
+          if(checked){            
+            updatedFilters[type].push(value);
+          }else{
+            updatedFilters[type] = updatedFilters[type].filter(item => item !== value);
+          }
+          return updatedFilters;
+        })
+      }
 
-    const sortBy = [
-        { by: "Price Low to High", name: "lowToHigh" },
-        { by: "Pirce High To Low", name: "highToLow" },
-        { by: "Newest First", name: "newestFirst" },
-    ]
+      const handleSortChange = (sortOption) => {
+        setSelectedSort(sortOption)
+      }
+
+      // clear all filters
+      const clearFilters = () => {
+          setSelectedFilters({
+            roomType: [],
+            priceRange: []
+          })
+      
+          setSelectedSort("");
+          setSearchParams({})
+      }
+      
 
   return (
     <div className={` ${visibilitySize === "smallScreen" ? "md:hidden flex mt-2" : "hidden md:flex"} lg:w-2/6 items-start justify-end ${otherClasses}`}>
       <div className={`border border-gray-300 *:p-4 ${visibilitySize === "smallScreen" ? 'w-full' : 'w-50 lg:w-60 xl:w-70'}`}>
         <div className="hidden border-b border-gray-300 md:flex justify-between items-center">
           <span>FILTERS</span>
-          <button className="text-gray-500 text-xs font-medium">CLEAR</button>
+          <button onClick={clearFilters} className="text-gray-500 text-xs font-medium">CLEAR</button>
         </div>
         <div className={`space-y-5 ${visibilitySize === "smallScreen" && "flex justify-between flex-wrap gap-x-6"} `}>
           <div className="space-y-1">
             <h4 className="mb-2">Popular Filters</h4>
-            {PopularFilters.map((el, index) => (
+            {roomType.map((el, index) => (
               <div key={index} className="text-gray-600/90 flex items-center gap-4 font-mono text-sm md:text-md lg:text-base">
-                <input type="checkbox" name={el.name} id={el.name} />
+                <input 
+                  checked={selectedFilters.roomType.includes(el.filter)}
+                  onChange={(e) => handleFilterChange(e.target.checked, el.filter, 'roomType')}
+                  type="checkbox" name={el.name} id={el.name} 
+                />
                 <label htmlFor={el.name}>{el.filter}</label>
               </div>
             ))}
@@ -41,20 +57,26 @@ const Filters = ({visibilitySize, otherClasses=""}) => {
 
           <div className="space-y-1">
             <h4 className="mb-2">Price Range</h4>
-            {priceRange.map((el, index) => (
+            {priceRange.map((range, index) => (
               <div key={index} className="text-gray-600/90 flex items-center gap-4 font-mono text-sm md:text-md lg:text-base">
-                <input type="checkbox" name={el.name} id={el.name} />
-                <label htmlFor={el.name}>{el.range}</label>
+                <input
+                  checked={selectedFilters.priceRange.includes(range.range)}
+                  onChange={(e) => handleFilterChange(e.target.checked, range.range, 'priceRange')}
+                  type="checkbox" name={range.name} id={range.name} />
+                <label htmlFor={range.name}>{currency}{range.range}</label>
               </div>
             ))}
           </div>
 
           <div className="space-y-1">
-            <h4 className="mb-2">Price Range</h4>
-            {sortBy.map((el, index) => (
+            <h4 className="mb-2">Sort By</h4>
+            {sortOptions.map((option, index) => (
               <div key={index} className="text-gray-600/90 flex items-center gap-4 font-mono text-sm md:text-md lg:text-base">
-                <input type="checkbox" name={el.name} id={el.name} />
-                <label htmlFor={el.name}>{el.by}</label>
+                <input 
+                  checked={selectedSort?.name === option.name}
+                  onChange={() => handleSortChange(option)}  
+                  type="radio" name="sort" id={option.name} />
+                <label htmlFor={option.name}>{option.by}</label>
               </div>
             ))}
           </div>
