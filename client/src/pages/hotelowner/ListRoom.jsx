@@ -9,7 +9,7 @@ const ListRoom = () => {
 
   const [rooms, setRooms] = useState([])
   const accessToken = localStorage.getItem("accessToken");
-  const {user, BASE_URL, setToastInfo} = useAppContext();
+  const {user, BASE_URL, setToastInfo, currency} = useAppContext();
 
   const fetchRooms = async() => {
     try {
@@ -101,7 +101,7 @@ const ListRoom = () => {
                       <tr key={index} className="border-t border-gray-300">
                         <td className="py-3 px-4">{item.roomType}</td>
                         <td className="py-3 px-4 max-sm:hidden">{item.amenities.join(", ")}</td>
-                        <td className="py-3 px-4 text-center">${item.pricePerNight}</td>
+                        <td className="py-3 px-4 text-center">{currency} {item.pricePerNight}</td>
                         <td className="py-3 px-4 text-center">
                           <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
                             <input onChange={() => toggleAvailability(item._id)} type="checkbox" className="sr-only peer" checked={item.isAvailable} />
