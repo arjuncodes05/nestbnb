@@ -8,8 +8,7 @@ const Dashboard = () => {
   const title = "Dashboard"
   const subtitle = "Monitor your room listings, track bookings and analyze revenue-all in one place. Stay updated with real-time insights to ensure smooth operations."
 
-  const {currency, BASE_URL, user, setToastInfo} = useAppContext();
-  const accessToken = localStorage.getItem("accessToken");
+  const {currency, BASE_URL, user, setToastInfo, accessToken} = useAppContext();
 
   const [dashboardData, setDashboardData] = useState({
     bookings: [],
@@ -21,7 +20,7 @@ const Dashboard = () => {
     try {
       const response = await fetch(`${BASE_URL}/api/bookings/hotel`, {
         headers: {
-          "Authorization": `Bearer ${accessToken}`
+          "Authorization": `Bearer ${accessToken()}`
         }
       })
       const data = await response.json();
@@ -44,10 +43,10 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if(user && accessToken){
+    if(user && accessToken()){
       fetchDashboardData();
     }
-  }, [user, accessToken])
+  }, [user])
 
   return (
     <div>

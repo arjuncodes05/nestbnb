@@ -10,7 +10,6 @@ export const AppProvider = ({children}) => {
     const navigate = useNavigate();
 
     const [isOwner, setIsOwner] = useState(false);
-    const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"))
     const [user, setUser] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [toastInfo, setToastInfo] = useState({
@@ -20,6 +19,10 @@ export const AppProvider = ({children}) => {
     })
     const [rooms, setRooms] = useState([]);
     const [searchedCities, setSearchedCities] = useState("")
+
+    const accessToken = () => {
+        return localStorage.getItem("accessToken")
+    }
 
     const fetchRooms = async () => {
         try {
@@ -48,7 +51,7 @@ export const AppProvider = ({children}) => {
             async function getUser() {
             const response = await fetch("http://localhost:3000/api/user", {
                 headers: {
-                Authorization: `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken()}`
                 }
             });
             if(response.status === 401){
@@ -76,10 +79,10 @@ export const AppProvider = ({children}) => {
     }
 
     useEffect(() => {
-        if (!user && accessToken) {
+        if (!user && accessToken()) {
             fetchUser();
         }
-    },[user, accessToken])
+    },[user])
 
     useEffect(() => {
         fetchRooms();

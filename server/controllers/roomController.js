@@ -45,7 +45,7 @@ export const getRooms = async (req, res) => {
             path: 'hotel', 
             populate: {
                 path: 'owner',
-                select: 'image'
+                select: 'image username'
             }
         }).sort({createdAt: -1});
         return res.json({success: true, rooms})

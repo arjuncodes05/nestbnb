@@ -15,7 +15,7 @@ const MyBookings = () => {
         try {
             const response = await fetch(`${BASE_URL}/api/bookings/user`, {
                 headers: {
-                    "Authorization": `Bearer ${accessToken}`
+                    "Authorization": `Bearer ${accessToken()}`
                 }
             })
             const data = await response.json();            

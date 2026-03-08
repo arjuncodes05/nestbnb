@@ -13,13 +13,13 @@ const Hero = () => {
         e.preventDefault();
         navigate(`/rooms?destination=${destination}`)
         scrollTo(0, 0)
-        
+          
         // call api to save recent searched cities
         await fetch(`${BASE_URL}/api/user/store-recent-search`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${accessToken}`
+                "Authorization": `Bearer ${accessToken()}`
             },
             body: JSON.stringify({recentSearchedCity: destination})
         })

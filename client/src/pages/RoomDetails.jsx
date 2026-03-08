@@ -90,7 +90,7 @@ const RoomDetails = () => {
           body: JSON.stringify({room: roomId, checkInDate, checkOutDate, guests, paymentMethod: "Pay At Hotel"}),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
+            "Authorization": `Bearer ${accessToken()}`
           }
         })
         const data = await response.json();
@@ -227,10 +227,10 @@ const RoomDetails = () => {
               {/* owner */}
               <div className="flex gap-6 h-30 md:h-50">
                 <div className="flex justify-center items-center w-15 md:w-20 h-15 md:h-20 rounded-full overflow-hidden bg-red-400">
-                  <img className="scale-150" src="https://cdn.britannica.com/54/264854-050-1F82F2BF/indian-actor-hrithik-roshan-european-premiere-kites-odeon-west-may-18-2010-london-england.jpg?w=400&h=300&c=crop" alt="ok" />
+                  <img className="scale-150" src={room.hotel.owner.image} alt="ok" />
                 </div>
                 <div className="mt-2 md:mt-5">
-                  <p className="font-semibold text-sm md:text-base">Hosted By <span>{room.hotel.owner.username}</span></p>
+                  <p className="text-sm md:text-base">Hosted By <span className="font-semibold">{room.hotel.owner.username}</span></p>
                   <p className="text-xs md:text-sm">200+ reviews</p>
                   <div className="mt-2 text-white font-medium text-xs md:text-base">
                     <button className="bg-blue-500/90 cursor-pointer rounded-md px-3 md:px-4 py-2 hover:bg-blue-500">Contact Now</button>

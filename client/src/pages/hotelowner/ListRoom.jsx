@@ -8,14 +8,13 @@ const ListRoom = () => {
   const subtitle = "View, edit, or manage all listed rooms. Keep the information up-to-date to provide the best experience for users."
 
   const [rooms, setRooms] = useState([])
-  const accessToken = localStorage.getItem("accessToken");
-  const {user, BASE_URL, setToastInfo, currency} = useAppContext();
+  const {user, BASE_URL, setToastInfo, currency, accessToken} = useAppContext();
 
   const fetchRooms = async() => {
     try {
       const response = await fetch(`${BASE_URL}/api/rooms/owner`, {
         headers: {
-          "Authorization": `Bearer ${accessToken}`
+          "Authorization": `Bearer ${accessToken()}`
         }
       })
 
@@ -39,10 +38,10 @@ const ListRoom = () => {
   }
 
   useEffect(() => {
-    if(user && accessToken){
+    if(user && accessToken()){
       fetchRooms();
     }
-  }, [user, accessToken])
+  }, [user])
 
   // toggle room availability
   const toggleAvailability = async(roomId) => {
@@ -51,7 +50,7 @@ const ListRoom = () => {
         method: "POST", 
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${accessToken}`
+          "Authorization": `Bearer ${accessToken()}`
         },
         body: JSON.stringify({roomId: roomId})
       })

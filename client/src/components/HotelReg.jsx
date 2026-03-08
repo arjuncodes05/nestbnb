@@ -9,17 +9,16 @@ const HotelReg = ({setMobileMenu}) => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     
-    const {BASE_URL, setShowHotelReg, setToastInfo, setIsOwner} = useAppContext();
+    const {BASE_URL, setShowHotelReg, setToastInfo, setIsOwner, accessToken} = useAppContext();
 
     const onSubmitHandler = async(e) => {
         e.preventDefault();
-        const accessToken = localStorage.getItem("accessToken")
         try {
             const response = await fetch(`${BASE_URL}/api/hotels/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization" : `Bearer ${accessToken}`
+                "Authorization" : `Bearer ${accessToken()}`
             },
             body : JSON.stringify({
                 name, contact, address, city

@@ -27,7 +27,7 @@ const AddRoom = () => {
     }
   });
   
-  const {BASE_URL, setToastInfo} = useAppContext();
+  const {BASE_URL, setToastInfo, accessToken} = useAppContext();
   const [loading, setLoading] = useState(false);
   const onSubmitHandler = async(e) => {
     e.preventDefault();        
@@ -55,11 +55,10 @@ const AddRoom = () => {
         if (image) formData.append('images', image);
       }
 
-      const accessToken = localStorage.getItem('accessToken')
       const response = await fetch(`${BASE_URL}/api/rooms`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${accessToken}`,
+          "Authorization": `Bearer ${accessToken()}`,
         },
         body: formData,
       })
