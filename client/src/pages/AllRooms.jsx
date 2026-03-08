@@ -80,7 +80,7 @@ const AllRooms = () => {
 
     // filter destination
     const filterDestination = (room) => {
-      const destination = searchParams.get('destination');
+      const destination = searchParams.get('destination');      
       if(!destination) return true
       return room.hotel.city.toLowerCase().includes(destination.toLowerCase());
     }
@@ -120,25 +120,32 @@ const AllRooms = () => {
             </div>
             <div className="flex flex-col justify-center items-center md:items-start my-10">
                 {
+                  filteredRooms.length === 0 ? (
+                    <div className="h-100 animate-pulse w-full text-center md:text-left text-md md:text-2xl font-medium text-gray-400">
+                      No Rooms Available...
+                    </div>
+                  ) : (
                     filteredRooms.map((room) => (
                         <RoomCard room={room} key={room._id}/>
                     ))
-                }
+                )}
             </div>
         </div>
-        <Filters 
-            visibilitySize="largeScreen" 
-            otherClasses="mt-50" 
-            selectedFilters={selectedFilters} 
-            setSelectedFilters={setSelectedFilters}
-            selectedSort={selectedSort}
-            setSelectedSort={setSelectedSort}
-            roomType={roomType}
-            priceRange={priceRange}
-            sortOptions={sortOptions}
-            setSearchParams={setSearchParams}
-        />
-
+        {
+          filteredRooms.length !== 0 && (
+            <Filters 
+                visibilitySize="largeScreen" 
+                otherClasses="mt-50" 
+                selectedFilters={selectedFilters} 
+                setSelectedFilters={setSelectedFilters}
+                selectedSort={selectedSort}
+                setSelectedSort={setSelectedSort}
+                roomType={roomType}
+                priceRange={priceRange}
+                sortOptions={sortOptions}
+                setSearchParams={setSearchParams}
+            />
+        )}
     </div>
   )
 }

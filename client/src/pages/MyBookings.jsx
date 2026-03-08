@@ -1,12 +1,47 @@
-import { useState } from 'react'
-import Title from '../components/Title'
-import { assets, userBookingsDummyData } from '../assets/assets'
+import { useEffect, useState } from 'react'
+import Title from '../components/Title.jsx'
+import { assets } from '../assets/assets.js'
+import {useAppContext} from "../context/AppContext.jsx"
 
 const MyBookings = () => {
     const title = "My Bookings"
     const subtitle = "Easily manage your past, current, and upcoming hotel reservations in one place. Plan your trips seamlessly with just a few clicks"
 
-    const [bookings, setBookings] = useState(userBookingsDummyData)
+    const {accessToken, user, BASE_URL, setToastInfo, currency} = useAppContext()
+
+    const [bookings, setBookings] = useState([])
+
+    const fetchUserBookings = async() => {
+        try {
+            const response = await fetch(`${BASE_URL}/api/bookings/user`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            })
+            const data = await response.json();            
+            if(data.success){
+                setBookings(data.bookings)
+            }else{
+                setToastInfo({
+                    visible: true,
+                    message: data.message,
+                    type: "error"
+                })
+            }
+        } catch (error) {
+            setToastInfo({
+                visible: true,
+                message: error.message,
+                type: "error"
+            })
+        }
+    }
+
+    useEffect(() => {
+        if(user){
+            fetchUserBookings();
+        }
+    }, [user])
 
   return (
     <div className="flex justify-between flex-col pt-20 space-y-8 px-5 sm:px-10 lg:px-20">
@@ -39,7 +74,7 @@ const MyBookings = () => {
                                         <img src={assets.guestsIcon} alt="guest icon" />
                                         <span>Guests: {data.guests}</span>
                                     </p>
-                                    <p className=' text-sm  text-end md:text-start font-medium'>Total: ${data.totalPrice}</p>
+                                    <p className=' text-sm  text-end md:text-start font-medium'>Total: {currency} {data.totalPrice}</p>
                                 </div>
                             </div>
 

@@ -19,7 +19,6 @@ const AuthSuccess = () => {
                     const response = await res.json()
                     
                     if(response.success){
-                        console.log("response (authSuccess.jsx page) >>> ", response.user);
                         setUser(response.user)
                         if (window.opener) { 
                             // this executes when we are on window, and new auth tab is opened

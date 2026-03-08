@@ -1,13 +1,15 @@
-import ExclusiveOffers from '../components/ExclusiveOffers'
-import FeaturedHotels from '../components/FeaturedHotels'
-import Hero from '../components/Hero'
-import Newsletter from '../components/Newsletter'
-import Testimonial from '../components/Testimonial'
+import ExclusiveOffers from '../components/ExclusiveOffers.jsx'
+import FeaturedHotels from '../components/FeaturedHotels.jsx'
+import Hero from '../components/Hero.jsx'
+import Newsletter from '../components/Newsletter.jsx'
+import RecommendedHotels from '../components/RecommendedHotels.jsx'
+import Testimonial from '../components/Testimonial.jsx'
 
 const Home = () => {
   return (
     <div className=''>
         <Hero/>
+        <RecommendedHotels/>
         <FeaturedHotels/>
         <ExclusiveOffers/>
         <Testimonial/>

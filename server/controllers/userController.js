@@ -16,7 +16,7 @@ export const getUserData = async(req, res) => {
 
 
 export const storeRecentSearchedCities = async (req, res) => {
-    const userId = req.userId;
+    const userId = req.userId;    
     const {recentSearchedCity} = req.body;
 
     if(!recentSearchedCity || typeof recentSearchedCity !== "string"){

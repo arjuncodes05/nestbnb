@@ -19,6 +19,7 @@ export const AppProvider = ({children}) => {
         type: "error"    // error or success
     })
     const [rooms, setRooms] = useState([]);
+    const [searchedCities, setSearchedCities] = useState("")
 
     const fetchRooms = async () => {
         try {
@@ -66,8 +67,11 @@ export const AppProvider = ({children}) => {
             }
             getUser();
         } catch (error) {
-            console.log("Error while fetching user");
-            // create a toast notification here
+            setToastInfo({
+                visible: true,
+                message: data.message,
+                type: "error"
+            })
         }
     }
 
@@ -93,7 +97,7 @@ export const AppProvider = ({children}) => {
     }, [])
 
     const value = {
-        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo, rooms, setRooms
+        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo, rooms, setRooms, searchedCities, setSearchedCities, accessToken
     }
 
     return  (

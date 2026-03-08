@@ -39,7 +39,7 @@ const HotelReg = ({setMobileMenu}) => {
         setCity("")
         setMobileMenu(false)
         } catch (error) {
-          console.log(error);
+          setToastInfo({visible: true, message: error.message, type: "error"})
         }
     }
 

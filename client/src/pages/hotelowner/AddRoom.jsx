@@ -63,9 +63,7 @@ const AddRoom = () => {
         },
         body: formData,
       })
-      const data = await response.json();
-      console.log("data > ", data);
-      
+      const data = await response.json();      
       if(data.success){
           setToastInfo({
             visible: true, 

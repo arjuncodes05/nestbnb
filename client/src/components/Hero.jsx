@@ -1,6 +1,39 @@
-import { assets } from "../assets/assets"
+import { useState } from "react"
+import { assets } from "../assets/assets.js"
+import { useNavigate } from "react-router-dom"
+import { useAppContext } from "../context/AppContext.jsx"
 
 const Hero = () => {
+
+    const [destination, setDestination] = useState("");
+    const {setSearchedCities, accessToken, BASE_URL} = useAppContext();
+    const navigate = useNavigate();
+
+    const onSearch = async(e) => {
+        e.preventDefault();
+        navigate(`/rooms?destination=${destination}`)
+        scrollTo(0, 0)
+        
+        // call api to save recent searched cities
+        await fetch(`${BASE_URL}/api/user/store-recent-search`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({recentSearchedCity: destination})
+        })
+
+        // add destination to searchedCities (max 3)
+        setSearchedCities((prev) => {
+            const updatedSearchedCities = [...prev, destination]
+            if(updatedSearchedCities.length > 3){
+                updatedSearchedCities.shift()
+            }
+            return updatedSearchedCities;
+        })
+    }
+
   return (
     <>
         <div className='w-full h-screen bg-[url("/src/assets/heroImage.png")] bg-center bg-cover flex flex-col pt-20 md:pt-0 justify-center items-start space-y-4 sm:space-y-6 text-white px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32'>
@@ -18,18 +51,18 @@ const Hero = () => {
             </p>
             </div>
 
-            <form className="bg-white text-black flex md:flex-row flex-col sm:flex-wrap lg:flex-nowrap lg:items-center p-4 rounded-lg gap-2 md:gap-4 select-none sm:w-3/5 md:w-fit">
+            <form onSubmit={onSearch} className="bg-white text-black flex md:flex-row flex-col sm:flex-wrap lg:flex-nowrap lg:items-center p-4 rounded-lg gap-2 md:gap-4 select-none sm:w-3/5 md:w-fit">
             <div className="flex flex-col text-gray-600 gap-0.5">
                 <div className="flex gap-2 items-center">
                 <img src={assets.calenderIcon} alt="icon" className="h-4" />
                 <label htmlFor="destination" className="text-sm sm:text-base ">Destination</label>
                 </div>
-                <input list="destinationList" placeholder="Type here" id="destination" className="border border-gray-300 px-2 py-1 rounded-md" />
+                <input value={destination} onChange={(e) => setDestination(e.target.value) } list="destinationList" placeholder="Type here" id="destination" className="border border-gray-300 px-2 py-1 rounded-md" />
                 <datalist id="destinationList">
-                <option value="Dehradun"/>
-                <option value="Noida"/>
-                <option value="Jaipur"/>
-                <option value="Haridwar"/>
+                    <option value="Dehradun"/>
+                    <option value="Noida"/>
+                    <option value="Jaipur"/>
+                    <option value="Haridwar"/>
                 </datalist>
             </div>
 

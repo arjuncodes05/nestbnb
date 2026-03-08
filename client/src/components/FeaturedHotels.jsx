@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import HotelCard from './HotelCard.jsx'
 import Title from './Title.jsx'
 import { useAppContext } from '../context/AppContext.jsx';

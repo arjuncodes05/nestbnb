@@ -38,7 +38,7 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
   
   
   return (
-    <div className="fixed top-0 left-0 h-88 md:h-64">
+    <div className="z-1 fixed top-0 left-0 h-88 md:h-64">
       <p className="h-125 w-20"></p>
       <nav className={`fixed top-0 left-0 z-50 w-full flex justify-between items-center px-4 sm:px-8 md:px-10 lg:px-24 xl:px-32 text-white transition-all ease duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xs shadow-md py-4 md:py-2" : "py-3 bg-transparent md:py-3"}`}>
           <Link to="/" className="items-center flex gap-3 cursor-pointer">
@@ -51,7 +51,7 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
                     <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Home
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
-                    <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Hotel
+                    <Link to="/rooms" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Hotel
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
                     <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Experience

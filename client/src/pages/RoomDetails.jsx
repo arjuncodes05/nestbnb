@@ -1,18 +1,130 @@
 import { useEffect, useState } from "react"
 import {useParams} from "react-router-dom"
-import { assets, facilityIcons, roomCommonData, roomsDummyData } from "../assets/assets.js"
+import { assets, facilityIcons, roomCommonData } from "../assets/assets.js"
+import { useAppContext } from "../context/AppContext.jsx"
 
 const RoomDetails = () => {
 
   const {id: roomId} = useParams()
-  const [room, setRoom] = useState();
+  const [room, setRoom] = useState(null);
   const [mainImg, setMainImg] = useState(null);
 
+  const {rooms, accessToken, navigate, setToastInfo, BASE_URL} = useAppContext();
+
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [guests, setGuests] = useState(1);
+
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  const checkAvailability = async() => {
+    try {
+
+      if(!checkInDate || !checkOutDate){
+        setToastInfo({
+          visible: true,
+          message: "Please fill the required details carefully.",
+          type: "error"
+        })
+        return
+      }
+
+      // check if check-in date is greater than check-out date
+      if(checkInDate >= checkOutDate){
+        setToastInfo({
+          visible: true,
+          message: "Check-In Date should be less than Check-Out date",
+          type: "error"
+        })
+        return;
+      }
+      const response = await fetch(`${BASE_URL}/api/bookings/check-availability`, {
+        method: "POST",
+        body: JSON.stringify({roomId, checkInDate, checkOutDate}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const data = await response.json();
+      if(data.success){
+        if(data.isAvailable){
+          setIsAvailable(true)
+          setToastInfo({
+            visible: true,
+            message: "Room is available",
+            type: "success"
+          })
+        }else{
+          setIsAvailable(false)
+          setToastInfo({
+            visible: true,
+            message: "Room is not available",
+            type: "error"
+          })
+        }
+      }else{
+        setToastInfo({
+            visible: true,
+            message: data.message,
+            type: "error"
+          })
+      }
+    } catch (error) {
+      setToastInfo({
+            visible: true,
+            message: error.message,
+            type: "error"
+      })
+    }
+  }
+
+  // submit handler function to check the availability abd book the room
+  const onSubmitHandler = async(e) => {
+    e.preventDefault();
+    try {
+      if(!isAvailable){
+        return checkAvailability();
+      }else{
+        const response = await fetch(`${BASE_URL}/api/bookings/book`, {
+          method: "POST",
+          body: JSON.stringify({room: roomId, checkInDate, checkOutDate, guests, paymentMethod: "Pay At Hotel"}),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
+          }
+        })
+        const data = await response.json();
+
+        if(data.success){
+          setToastInfo({
+            visible: true,
+            message: data.message,
+            type: "success"
+          })
+          navigate("/my-bookings")
+          scrollTo(0, 0)
+        }else{
+          setToastInfo({
+            visible: true,
+            message: data.message,
+            type: "error"
+          })
+        }
+      }
+    } catch (error) {
+      setToastInfo({
+            visible: true,
+            message: error.message,
+            type: "error"
+      })
+    }
+  }
+
   useEffect(() => {
-    const roomData = roomsDummyData.find((room) => room._id ===  roomId)
+    const roomData = rooms.find((room) => room._id ===  roomId)
     roomData && setRoom(roomData)
     roomData && setMainImg(roomData.images[0])
-  }, [])
+  }, [rooms])
 
   return (
       room &&
@@ -69,24 +181,24 @@ const RoomDetails = () => {
 
               {/* form */}
               <div className="flex lg:justify-center my-10 lg:my-15">
-                <form className="flex flex-col sm:flex-row flex-wrap gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.1)] p-4 lg:p-8 text-gray-500 *:flex *:flex-col *:justify-center *:gap-2  *:text-sm *:lg:text-base">
+                <form onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row flex-wrap gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.1)] p-4 lg:p-8 text-gray-500 *:flex *:flex-col *:justify-center *:gap-2  *:text-sm *:lg:text-base">
                   <div>
                     <label htmlFor="checkIn" className="font-medium">Check-In</label>
-                    <input type="date" name="checkIn" id="checkIn" className="border border-gray-400 px-2 py-1 rounded-sm" />
+                    <input onChange={(e) => setCheckInDate(e.target.value)} min={new Date().toISOString().split("T")[0]} type="date" name="checkIn" id="checkIn" className="border border-gray-400 px-2 py-1 rounded-sm" />
                   </div>
                   
                   <div>
                     <label htmlFor="checkOut" className="font-medium">Check-Out</label>
-                    <input type="date" name="checkOut" id="checkOut" className="border border-gray-400 px-2 py-1 rounded-sm" />
+                    <input onChange={(e) => setCheckOutDate(e.target.value)} min={checkInDate} disabled={!checkInDate} type="date" name="checkOut" id="checkOut" className="border border-gray-400 px-2 py-1 rounded-sm" />
                   </div>
 
                   <div>
                     <label htmlFor="guestCount" className="font-medium">Guest</label>
-                    <input type="number" name="guestCount" id="guestCount" placeholder="2" className="border w-15 border-gray-400 px-2 py-1 rounded-sm" />
+                    <input onChange={(e) => setGuests(e.target.value)} value={guests} type="number" name="guestCount" id="guestCount" placeholder="1" className="border w-15 border-gray-400 px-2 py-1 rounded-sm" />
                   </div>
 
                   <div className="self-end lg:self-end">
-                    <button className="cursor-pointer bg-blue-500 px-4 py-2 rounded-md active:scale-95 text-white font-semibold">Check Availability</button>
+                    <button className="cursor-pointer bg-blue-500 px-4 py-2 rounded-md active:scale-95 text-white font-semibold">{isAvailable ? 'Book now' : 'Check Availability'}</button>
                   </div>
 
                 </form>

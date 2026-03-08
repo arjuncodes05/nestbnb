@@ -1,15 +1,16 @@
 import Booking from "../models/Bookings.js"
 import Room from "../models/Room.js"
 import Hotel from "../models/Hotel.js"
+import mongoose from "mongoose"
 
 const checkAvailability = async({checkInDate, checkOutDate, roomId}) =>{
     try {
         const bookings = await Booking.find({
-            roomId, 
+            room: new mongoose.Types.ObjectId(roomId), 
             checkInDate: {$lte: checkOutDate},
             checkOutDate: {$gte: checkInDate}
         })
-        const isAvailable = bookings.length === 0;
+        const isAvailable = bookings.length === 0;        
         return isAvailable
     } catch (error) {
         console.error(error.message);
@@ -33,9 +34,9 @@ export const checkAvailabilityAPI = async (req, res) => {
 
 export const createBooking = async(req, res) => {
     try {
-        const {roomId, checkInDate, checkOutDate, guests} = req.body;
+        const {room, checkInDate, checkOutDate, guests} = req.body;
 
-        if (checkOut <= checkIn) {
+        if (checkOutDate <= checkInDate) {
             return res.json({ success: false, message: "Invalid date range" });
         }
 
@@ -44,12 +45,12 @@ export const createBooking = async(req, res) => {
         }
 
         const userId = req.userId;
-        const isAvailable = await checkAvailability({checkInDate, checkOutDate, roomId});
+        const isAvailable = await checkAvailability({checkInDate, checkOutDate, room});
         if(!isAvailable){
             return res.json({success: false, message: "Room is not available during this period."})
         }
 
-        const roomData = await Room.findById(roomId).populate("hotel");
+        const roomData = await Room.findById(room).populate("hotel");
         let totalPrice = roomData.pricePerNight;
 
         // calculate total price based on night
@@ -60,8 +61,8 @@ export const createBooking = async(req, res) => {
         totalPrice *= nights
 
         const booking = await Booking.create({
-            userId,
-            roomId, 
+            user: userId,
+            room, 
             hotel: 
             roomData.hotel._id, 
             guests: +guests, 
@@ -73,7 +74,7 @@ export const createBooking = async(req, res) => {
         return res.json({success: true, message: "Booking created Successfully"})
 
     } catch (error) {
-        console.error("Error while booking >> ", error.message);
+        console.error("Error while booking >> ", error);
         return res.json({success: false, message: "Failed to create Booking"})
     }
 }
@@ -82,7 +83,7 @@ export const createBooking = async(req, res) => {
 export const getUserBookings = async(req, res) => {
     try {
         const userId = req.userId;
-        const bookings = await Booking.find({userId}).populate("room hotel").sort({createdAt: -1})
+        const bookings = await Booking.find({user: userId}).populate("room hotel").sort({createdAt: -1})
         return res.json({success: true, bookings})
     } catch (error) {
         console.log("Error occured at getUserBookings >> ", error.message);
