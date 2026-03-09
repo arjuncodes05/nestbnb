@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext.jsx'
 
 const AuthSuccess = () => {
     const {setUser} = useAppContext();
-    const {BASE_URL} = useAppContext();
+    const {BASE_URL, setToastInfo} = useAppContext();
     
     useEffect(() => {
         const handleAuth = async()=>{

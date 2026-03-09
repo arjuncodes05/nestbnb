@@ -16,10 +16,10 @@ authRoute.get(
         try {
             const token = jwt.sign({id: req.user.id, email: req.user.email}, process.env.GOOGLE_CLIENT_SECRET, {expiresIn: "7d"});
 
-            res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`)
+            return res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`)
         } catch (error) {
             console.log("error while google auth callback >> ", error);
-            res.redirect(`${process.env.CLIENT_URL}/login?error="google_failed`)
+            return res.redirect(`${process.env.CLIENT_URL}/login?error="google_failed`)
         }
     }
 )
