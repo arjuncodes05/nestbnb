@@ -39,6 +39,8 @@ import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
 import googleLogo from "./google-logo.svg"
+import greenTick from "./green-tick.png"
+import errorIcon from "./errorIcon.svg" 
 
 
 export const assets = {
@@ -75,7 +77,9 @@ export const assets = {
     uploadArea,
     totalBookingIcon,
     totalRevenueIcon,
-    googleLogo
+    googleLogo,
+    greenTick,
+    errorIcon
 }
 
 export const cities = [
@@ -102,7 +106,7 @@ export const testimonials = [
 
 // Facility Icon
 export const facilityIcons = {
-    "Free WiFi": assets.freeWifiIcon,
+    "Free Wifi": assets.freeWifiIcon,
     "Free Breakfast": assets.freeBreakfastIcon,
     "Room Service": assets.roomServiceIcon,
     "Mountain View": assets.mountainIcon,

@@ -3,8 +3,8 @@ import {Link} from "react-router-dom"
 
 const HotelCard = ({data}) => {
   return (
-    <div className="cursor-pointer w-65 sm:w-[40%] md:w-64 xl:w-65 rounded-lg overflow-hidden shadow-sm">
-      <img src={data.images[0]} alt="image" />
+    <div className="cursor-pointer w-65 sm:w-[40%] md:w-64 xl:w-65 rounded-lg overflow-hidden shadow-sm hover:scale-101">
+      <img src={data.images[0]} alt="image" className="w-full h-48 object-cover" />
       <div className="p-4 space-y-2">
         <div className="flex justify-between">
           <h3 className="font-playfair font-medium text-lg md:text-xl">

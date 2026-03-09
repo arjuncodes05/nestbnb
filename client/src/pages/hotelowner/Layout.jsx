@@ -1,8 +1,20 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../../components/hotelOwner/NavBar"
 import SlideBar from "../../components/hotelOwner/SlideBar"
+import { useAppContext } from "../../context/AppContext"
+import { useEffect } from "react"
+import Toast from "../../components/Toast.jsx"
 
 const Layout = () => {
+
+  const {isOwner, navigate} = useAppContext();
+
+  useEffect(() => {
+    if(!isOwner){
+      navigate("/");
+    }
+  }, [isOwner])
+  
   return (
     <div className="min-h-screen">
       <NavBar/>

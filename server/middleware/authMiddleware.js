@@ -1,9 +1,9 @@
 import User from "../models/User.js";
 import jwt from 'jsonwebtoken'
 
-const isAuthenticated = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-
+  
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -24,7 +24,7 @@ const isAuthenticated = async (req, res, next) => {
       return res.status(404).json({success: false, message: "User not found" });
     }
 
-    req.user = user; // ✅ VERY IMPORTANT
+    req.user = user;
     req.userId = user._id
     next();
   } catch (err) {
@@ -32,4 +32,4 @@ const isAuthenticated = async (req, res, next) => {
   }
 };
 
-export default isAuthenticated;
+export default authMiddleware;

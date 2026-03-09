@@ -20,11 +20,12 @@ const RoomCard = ({ room }) => {
   };
 
   return (
-    <div className="overflow-hidden shadow-sm p-2 xl:shadow-none xl:p-0 rounded-lg flex flex-col xl:flex-row sm:items-start md:items-center gap-4 my-5 pb-6 border-gray-400/90">
+    <div className="overflow-hidden shadow-sm p-2 xl:shadow-none xl:p-0 rounded-lg flex flex-col xl:flex-row sm:items-start xl:items-center gap-4 lg:gap-2 my-5 pb-6 border-gray-400/90">
+      
       <img
-        className="w-full xl:w-1/2 max-h-60 rounded-xl"
-        src={room.images[0]}
-        alt="room image"
+          className="w-full md:w-100 xl:w-90 h-50 md:h-60 object-cover rounded-xl"
+          src={room.images[0]}
+          alt="room image"
       />
 
       <div className="px-4 space-y-2 lg:space-y-2">
@@ -44,13 +45,13 @@ const RoomCard = ({ room }) => {
           <img src={assets.locationIcon} alt="location icon" />
           {room.hotel.address}
         </p>
-        <ul className="flex flex-row gap-2 flex-wrap">
+        <ul className="grid grid-cols-2 xl:grid-cols-3 gap-2">
           {room.amenities.map((el, index) => (
             <li key={index} className="bg-purple-500/20 px-4 py-2 rounded-md flex items-center justify-center gap-2 text-xs">
               <img
                 className="w-4"
                 src={facilityIcons[el]}
-                alt={`${el}`}
+                alt=""
               />
               <span className="text-xs">{el}</span>
             </li>

@@ -12,15 +12,22 @@ import Dashboard from "./pages/hotelowner/Dashboard.jsx"
 import AddRoom from "./pages/hotelowner/AddRoom.jsx"
 import ListRoom from "./pages/hotelowner/ListRoom.jsx"
 import AuthSuccess from "./pages/AuthSuccess.jsx";
+import { useAppContext } from "./context/AppContext.jsx";
+import Toast from "./components/Toast.jsx";
+import { useState } from "react";
+import AboutUs from "./pages/AboutUs.jsx";
 
 const App = () => {
 
   const isOwnerPath = useLocation().pathname.includes("owner");
+  const {showHotelReg} = useAppContext();
+  const [mobileMenu, setMobileMenu] = useState(false);
   
   return (
     <div>
-      { !isOwnerPath && <NavBar/>}
-      {false && <HotelReg />}
+      <Toast/>
+      { !isOwnerPath && <NavBar mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} />}
+      {showHotelReg && <HotelReg setMobileMenu={setMobileMenu} />}
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/rooms" element={<AllRooms/>}/>
@@ -32,7 +39,10 @@ const App = () => {
             <Route path="list-room" element={<ListRoom/>} />
           </Route>
           <Route path="/auth-success" element={<AuthSuccess/>} />
+
+          <Route path="/about" element={<AboutUs/>} />
         </Routes>
+
       <Footer/>
     </div>
   );
