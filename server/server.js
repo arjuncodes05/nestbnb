@@ -14,6 +14,7 @@ import connectCloudinary from "./config/cloudinary.js";
 connectDB()
 connectCloudinary();
 const app = express();
+app.set("trust proxy", 1);
 
 app.use(cors())
 app.use(express.json());
