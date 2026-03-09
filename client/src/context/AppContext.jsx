@@ -24,6 +24,18 @@ export const AppProvider = ({children}) => {
         return localStorage.getItem("accessToken")
     }
 
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        setUser(false);
+        setIsOwner(false);
+        navigate("/");
+        setToastInfo({
+            visible: true,
+            message: "Logged out successfully",
+            type: "success"
+        });
+    }
+
     const fetchRooms = async () => {
         try {
             const response = await fetch(`${BASE_URL}/api/rooms`)
@@ -49,7 +61,7 @@ export const AppProvider = ({children}) => {
     const fetchUser = async () => {
         try {   
             async function getUser() {
-            const response = await fetch("http://localhost:3000/api/user", {
+            const response = await fetch(`${BASE_URL}/api/user`, {
                 headers: {
                 Authorization: `Bearer ${accessToken()}`
                 }
@@ -100,7 +112,7 @@ export const AppProvider = ({children}) => {
     }, [])
 
     const value = {
-        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo, rooms, setRooms, searchedCities, setSearchedCities, accessToken
+        currency, BASE_URL,  navigate, user, setUser, isOwner, setIsOwner, showHotelReg, setShowHotelReg, fetchUser, setToastInfo, toastInfo, rooms, setRooms, searchedCities, setSearchedCities, accessToken, logout
     }
 
     return  (

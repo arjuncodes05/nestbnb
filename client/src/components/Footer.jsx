@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { assets } from "../assets/assets"
 
 const Footer = () => {
+
+    const navigate = useNavigate()
   return (
     <div className="w-full bg-slate-50 flex flex-col justify-center px-5 sm:px-10 lg:px-20 pt-10">
         <div className="w-full flex justify-between flex-wrap gap-4 *:p-4">
@@ -27,7 +29,10 @@ const Footer = () => {
             <div className="space-y-4">
                 <h3 className="font-playfair text-xl">COMPANY</h3>
                 <ul className="text-gray-500/90 text-sm space-y-2 cursor-pointer">
-                    <li>About</li>
+                    <li onClick={() => {
+                        navigate("/about")
+                        scrollTo(0, 0)
+                    }}>About</li>
                     <li>Careers</li>
                     <li>Press</li>
                     <li>Blog</li>

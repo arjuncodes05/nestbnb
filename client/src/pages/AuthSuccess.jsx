@@ -3,6 +3,7 @@ import { useAppContext } from '../context/AppContext.jsx'
 
 const AuthSuccess = () => {
     const {setUser} = useAppContext();
+    const {BASE_URL} = useAppContext();
     
     useEffect(() => {
         const handleAuth = async()=>{
@@ -11,7 +12,7 @@ const AuthSuccess = () => {
             if(accessToken){
                 localStorage.setItem("accessToken", accessToken)
                 try {
-                    const res = await fetch("http://localhost:3000/auth/me", {
+                    const res = await fetch(`${BASE_URL}/auth/me`, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
@@ -30,7 +31,11 @@ const AuthSuccess = () => {
                         }
                     }
                 } catch (error) {
-                    console.error("Error fetching user >> ", error)
+                    setToastInfo({
+                        visible: true,
+                        message: error.message,
+                        type: error
+                    })
                 }
             }
         }

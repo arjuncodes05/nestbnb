@@ -15,6 +15,7 @@ import AuthSuccess from "./pages/AuthSuccess.jsx";
 import { useAppContext } from "./context/AppContext.jsx";
 import Toast from "./components/Toast.jsx";
 import { useState } from "react";
+import AboutUs from "./pages/AboutUs.jsx";
 
 const App = () => {
 
@@ -38,7 +39,10 @@ const App = () => {
             <Route path="list-room" element={<ListRoom/>} />
           </Route>
           <Route path="/auth-success" element={<AuthSuccess/>} />
+
+          <Route path="/about" element={<AboutUs/>} />
         </Routes>
+
       <Footer/>
     </div>
   );

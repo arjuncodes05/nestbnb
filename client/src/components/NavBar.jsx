@@ -6,12 +6,13 @@ import { useAppContext } from "../context/AppContext.jsx";
 
 const NavBar = ({mobileMenu, setMobileMenu}) => {
 
-  const {user, navigate,  isOwner, setShowHotelReg} = useAppContext();
+  const {user, navigate, isOwner, setShowHotelReg, logout} = useAppContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLoginBox, setShowLoginBox] = useState({
     desktop: false,
     mobile: false
   });
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const location = useLocation()
 
@@ -34,8 +35,9 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
   useEffect(() => {
     setShowLoginBox({ desktop: false, mobile: false })
     setMobileMenu(false)
+    setShowUserMenu(false);
   }, [location.pathname])
-  
+
   
   return (
     <div className="z-1 fixed top-0 left-0 h-88 md:h-64">
@@ -57,7 +59,7 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
                     <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>Experience
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
-                    <Link to="/" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>About
+                    <Link to="/about" className={`relative cursor-pointer group ${isScrolled ? "invert" : "text-white"}`}>About
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
                     { user && (
@@ -80,10 +82,40 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
             <div className={`w-full flex justify-end md:hidden`}> 
               {
                 user && (
-                    <div className="w-6 mr-4 h-6 rounded-full overflow-hidden">
-                      <img src={user.image} alt="" />
+                  <div className="relative">
+                    <div 
+                      onClick={() => setShowUserMenu(!showUserMenu)}
+                      className="w-8 h-8 mr-4 rounded-full overflow-hidden cursor-pointer border-2"
+                    >
+                      <img src={user.image} alt="user" className="w-full h-full object-cover" />
                     </div>
-                  )
+                    
+                    {/* Mobile User Dropdown */}
+                    {showUserMenu && (
+                      <div className="absolute right-4 top-10 bg-white rounded-lg shadow-lg py-2 w-40 z-50">
+
+                        <button
+                          onClick={() => {
+                            navigate("/my-bookings");
+                            setShowUserMenu(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          My Bookings
+                        </button>
+                        <button
+                          onClick={() => {
+                            logout();
+                            setShowUserMenu(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
               }
               <img className={`${isScrolled ? "invert" : ""}`} onClick={() => setMobileMenu(!mobileMenu)} src={assets.menuIcon} alt="" />
               <div className={`${mobileMenu === true ? "left-0" : "-left-full" } flex top-0 bg-white text-black w-full h-screen absolute justify-center items-center flex-col transition-all duration-300`}>
@@ -105,7 +137,7 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
 
-                    <Link to="/" className="relative group">About
+                    <Link to="/about" className="relative group">About
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
 
@@ -135,9 +167,6 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
 
             <div>
               <ul className="hidden md:flex flex-row gap-5 items-center">
-                <li>
-                  <img className={`h-7 ${isScrolled ? "invert" : ""} transition-all duration-500`} src={assets.searchIcon} alt="search" />
-                </li>
                 {
                   !user ? (
                   <li className="relative">
@@ -147,9 +176,50 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
                         <LoginBoxes type="desktop" setShowLoginBox={setShowLoginBox}/>
                     }
                   </li> ) : (
-                    <div className="w-8 h-8 rounded-full overflow-hidden">
-                      <img src={user.image} alt="user" />
-                    </div>
+                    <li className="relative">
+                      <div 
+                        onClick={() => setShowUserMenu(!showUserMenu)}
+                        className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+                      >
+                        <img src={user.image} alt="user" className="w-full h-full object-cover" />
+                      </div>
+                      
+                      {/* Desktop User Dropdown */}
+                      {showUserMenu && (
+                        <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg py-2 w-48 z-50">
+                          <div className="px-4 py-2 border-b border-gray-100">
+                            <p className="text-sm font-semibold text-gray-800">{user.name || 'User'}</p>
+                            <p className="text-xs text-gray-500">{user.email || ''}</p>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              navigate("/my-bookings");
+                              setShowUserMenu(false);
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            My Bookings
+                          </button>
+
+                          {isOwner && (
+                            <button onClick={() => {
+                                navigate("/owner");
+                                setShowUserMenu(false);
+                              }}
+                              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >Dashboard</button>
+                          )}
+                          
+                          <button onClick={() => {
+                              logout();
+                              setShowUserMenu(false);
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 border-t border-gray-100 mt-1"
+                          >Logout</button>
+                        </div>
+                      )}
+                    </li>
                   )
                 }
               </ul>
