@@ -125,11 +125,11 @@ const NavBar = ({mobileMenu, setMobileMenu}) => {
                   setMobileMenu(false)
                 }} src={assets.closeMenu} alt="" className="absolute h-6.5 top-4 right-4" />
                 <div className="flex justify-center flex-col gap-6 *:cursor-pointer items-center">
-                    <Link to="/home" className="relative group">Home
+                    <Link to="/" className="relative group">Home
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
 
-                    <Link to="/" className="relative group">Hotel
+                    <Link to="/rooms" className="relative group">Hotel
                       <span className="absolute h-0.5 bg-white w-full left-0 -bottom-1 scale-x-0 transition-transform origin-left duration-300 group-hover:scale-x-100"></span>
                     </Link>
 
