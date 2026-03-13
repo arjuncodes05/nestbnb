@@ -14,22 +14,20 @@ The project demonstrates full-stack web development concepts including authentic
 
 ## 🛠 Tech Stack
 
-Frontend
-- HTML
-- CSS
-- JavaScript
-- Bootstrap / Tailwind (if used)
+### Frontend
+- **Framework:** [React](https://reactjs.org/) with [Vite](https://vitejs.dev/)
+- **Styling:** Tailwind
+- **State Management:** React Context API
 
-Backend
-- Node.js
-- Express.js
+### Backend
+- **Runtime:** [Node.js](https://nodejs.org/)
+- **Framework:** [Express.js](https://expressjs.com/)
+- **Database:** MongoDB with Mongoose ODM
+- **Authentication:** JWT
 
-Database
-- MongoDB / Mongoose
-
-Tools
-- Git
-- GitHub
-- npm
+### Deployment
+- **Frontend:** [Vercel](https://vercel.com/)
+- **Backend:** [Vercel](https://vercel.com/) (Serverless Functions)
+ GitHub
 
 
